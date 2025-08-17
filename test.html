@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>告白视频演示</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+    }
+    #final-video-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 9999;
+      background: black;
+    }
+    #final-message {
+      display: none;
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      z-index: 10000;
+    }
+    #final-message p {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    #exit-btn {
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ 测试按钮：点击播放视频 -->
+  <button onclick="showVideo()" style="position:fixed;top:20px;left:20px;z-index:10001;">播放告白视频</button>
+
+  <!-- ✅ 视频遮罩层 -->
+  <div id="final-video-overlay">
+    <video id="final-video" width="100%" height="100%" muted autoplay playsinline>
+      <source src="video/yanhua1.mp4" type="video/mp4">
+      您的浏览器不支持视频播放。
+    </video>
+
+    <!-- ✅ 播放完后显示的文字和按钮 -->
+    <div id="final-message">
+      <p>愿这份心意，永远留在你心里。</p>
+      <button id="exit-btn">点击结束告白</button>
+    </div>
+  </div>
+
+  <script>
+    function showVideo() {
+      const overlay = document.getElementById('final-video-overlay');
+      const video = document.getElementById('final-video');
+      overlay.style.display = 'block';
+      video.play();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const finalVideo = document.getElementById('final-video');
+      const finalMessage = document.getElementById('final-message');
+      const exitBtn = document.getElementById('exit-btn');
+
+      finalVideo.addEventListener('ended', function () {
+        console.log("视频播放完毕");
+        finalMessage.style.display = 'block';
+      });
+
+      exitBtn.addEventListener('click', function () {
+        document.getElementById('final-video-overlay').style.display = 'none';
+      });
+    });
+  </script>
+
+</body>
+</html>
